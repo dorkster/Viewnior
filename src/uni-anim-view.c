@@ -267,10 +267,12 @@ uni_anim_view_set_anim (UniAnimView * aview, GdkPixbufAnimation * anim)
     if (is_static)
     {
         pixbuf = gdk_pixbuf_animation_get_static_image (anim);
+        aview->parent.interp = GDK_INTERP_BILINEAR;
     }
     else
     {
         pixbuf = gdk_pixbuf_animation_iter_get_pixbuf (aview->iter);
+        aview->parent.interp = GDK_INTERP_NEAREST;
     }
 
     uni_image_view_set_pixbuf (UNI_IMAGE_VIEW (aview), pixbuf, TRUE);
