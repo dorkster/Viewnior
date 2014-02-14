@@ -49,13 +49,18 @@ uni_anim_view_updator (gpointer data)
 
     // Workaround for #437791.
     glong delay_us = aview->delay * 1000;
+    // GDK is stupid and treats 10ms delay as 20ms
+    // so one or the other will play at an incorret speed
     if (aview->delay == 20)
     {
         // If the delay time is 20 ms, the GIF is a "fast player." and
         // we increase it to a more reasonable 100 ms so that the
         // frame is only updated 1/5 of the times
         // uni_anim_view_updator() is run.
-        delay_us = 200;
+        // delay_us = 200;
+        
+        // this delay seems to better match the speed Firefox plays animations at
+        delay_us = 250;
     }
     g_time_val_add (&aview->time, delay_us);
 
